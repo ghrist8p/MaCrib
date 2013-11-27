@@ -5,6 +5,7 @@ function main() {
     var frame = 0;
     setInterval(function () {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawTopLeftAndDownRightCursor(ctx, canvas);
         drawGrass(ctx, canvas);
         drawWalls(ctx, canvas);
         drawRoof(ctx, canvas);
@@ -15,15 +16,18 @@ function main() {
 
 //draws grass
 function drawGrass(ctx, canvas) {
-    ctx.beginPath();
-    ctx.moveTo(25,178);
-    ctx.quadraticCurveTo(4,225,54,258);
-    ctx.quadraticCurveTo(102,290,145,240);
-    ctx.quadraticCurveTo(180,200,230,205);
-    ctx.quadraticCurveTo(283,210,273,162);
-    ctx.quadraticCurveTo(265,120,155,110);
-    ctx.quadraticCurveTo(58,102,25,178);
+    var x = 0;
+    var y = 0;
+
     ctx.fillStyle = 'green';
+    ctx.beginPath();
+    ctx.moveTo(x+25,y+178);
+    ctx.quadraticCurveTo(x+4,y+225,x+54,y+258);
+    ctx.quadraticCurveTo(x+102,y+290,x+145,y+240);
+    ctx.quadraticCurveTo(x+180,y+200,x+230,y+205);
+    ctx.quadraticCurveTo(x+283,y+210,x+273,y+162);
+    ctx.quadraticCurveTo(x+265,y+120,x+155,y+110);
+    ctx.quadraticCurveTo(x+58,y+102,x+25,y+178);
     ctx.fill();
     ctx.stroke();
     
@@ -32,6 +36,8 @@ function drawGrass(ctx, canvas) {
 function drawWalls(ctx, canvas) {
     var x = 30;
     var y = 90;
+
+    ctx.fillStyle = 'blue';
     ctx.beginPath()
     //west face wall
     ctx.rect(x+0,y+30,60,75);//a
@@ -45,8 +51,6 @@ function drawWalls(ctx, canvas) {
     ctx.lineTo(x+150,y+15);//f
     ctx.lineTo(x+150,y+90);//g
     ctx.lineTo(x+85,y+90);//d
-    ctx.fillStyle = 'blue';
-    ctx.fill();
     ctx.stroke();
 
     //over draw
@@ -58,15 +62,21 @@ function drawWalls(ctx, canvas) {
     ctx.lineTo(x+235,y+0);//j
     ctx.lineTo(x+235,y+75);//k
     ctx.lineTo(x+185,y+105);//l
-    ctx.fillStyle = 'blue';
     ctx.fill();
     ctx.stroke();
+}
+
+function drawDoor(ctx, canvas) {
+    var x = 30;
+    var y = 90;
+    ctx.beginPath();
 }
 
 function drawRoof(ctx, canvas) {
     var x = 30;
     var y = 90;
-
+    
+    ctx.fillStyle = 'red';
     ctx.beginPath();
     //draw west roof triangle
     ctx.moveTo(x+0,y+30)//a
@@ -82,7 +92,6 @@ function drawRoof(ctx, canvas) {
     ctx.lineTo(x+205,y-40);//o
     ctx.lineTo(x+150,y+15);//f
     ctx.lineTo(x+85,y+15);//c
-    ctx.fillStyle = 'red';
     ctx.fill();
     ctx.stroke();
 
@@ -97,7 +106,6 @@ function drawRoof(ctx, canvas) {
     ctx.lineTo(x+205,y-40);//o
     ctx.lineTo(x+235,y+0);//j
     ctx.lineTo(x+185,y+30);//j
-    ctx.fillStyle = 'red';
     ctx.fill();
     ctx.stroke();
     ctx.beginPath();
@@ -111,4 +119,39 @@ function drawSmoke(ctx, canvas, frame) {
     ctx.fillStyle = "rgb(0, 0, 0)";
     ctx.font = "bold 1em Arial";
     ctx.fillText("Hello World", 46, frame);
+}
+
+function drawTopLeftAndDownRightCursor(ctx, canvas) {
+    ctx.strokeWidth = 1;
+    ctx.strokeStyle = "black";
+
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(5,5);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(5,0);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.moveTo(300,300);
+    ctx.lineTo(295,295);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(300,300);
+    ctx.lineTo(300,295);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(300,300);
+    ctx.lineTo(295,300);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(0,5);
+    ctx.stroke();
 }
