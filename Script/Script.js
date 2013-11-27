@@ -13,6 +13,7 @@ function main() {
     }, 40);
 }
 
+//draws grass
 function drawGrass(ctx, canvas) {
     ctx.beginPath();
     ctx.moveTo(25,178);
@@ -32,11 +33,14 @@ function drawWalls(ctx, canvas) {
     var x = 30;
     var y = 90;
     ctx.beginPath()
+    //west face wall
     ctx.rect(x+0,y+30,60,75);//a
+    //parallelogram
     ctx.moveTo(x+60,y+30);//b
     ctx.lineTo(x+85,y+15);//c
     ctx.lineTo(x+85,y+90);//d
     ctx.lineTo(x+60,y+105);//e
+    //back middle wall
     ctx.moveTo(x+85,y+15);//c
     ctx.lineTo(x+150,y+15);//f
     ctx.lineTo(x+150,y+90);//g
@@ -44,8 +48,12 @@ function drawWalls(ctx, canvas) {
     ctx.fillStyle = 'blue';
     ctx.fill();
     ctx.stroke();
+
+    //over draw
     ctx.beginPath();
+    //east fron wall
     ctx.rect(x+125,y+30,60,75);//h
+    //parallelogram
     ctx.moveTo(x+185,y+30);//i
     ctx.lineTo(x+235,y+0);//j
     ctx.lineTo(x+235,y+75);//k
@@ -58,14 +66,18 @@ function drawWalls(ctx, canvas) {
 function drawRoof(ctx, canvas) {
     var x = 30;
     var y = 90;
+
     ctx.beginPath();
+    //draw west roof triangle
     ctx.moveTo(x+0,y+30)//a
     ctx.lineTo(x+30,y-10);//m
     ctx.lineTo(x+60,y+30);//b
+    //draw west trapez
     ctx.moveTo(x+30,y-10);//m
     ctx.lineTo(x+90,y-40);//n
     ctx.lineTo(x+85,y+15);//c
     ctx.lineTo(x+60,y+30);//b
+    //draw middle roof trapez
     ctx.moveTo(x+90,y-40);//n
     ctx.lineTo(x+205,y-40);//o
     ctx.lineTo(x+150,y+15);//f
@@ -73,11 +85,15 @@ function drawRoof(ctx, canvas) {
     ctx.fillStyle = 'red';
     ctx.fill();
     ctx.stroke();
+
+    //over draw
     ctx.beginPath();
+    //draw west troof triangle
     ctx.moveTo(x+155,y-10);//p
     ctx.lineTo(x+125,y+30);//h
     ctx.lineTo(x+185,y+30);//i
     ctx.lineTo(x+155,y-10);//p
+    //draw west roof parallelogram
     ctx.lineTo(x+205,y-40);//o
     ctx.lineTo(x+235,y+0);//j
     ctx.lineTo(x+185,y+30);//j
@@ -88,6 +104,9 @@ function drawRoof(ctx, canvas) {
 
 }
 
+//eventually this will be thw smoke
+//the frame loops from 0 to wahtever
+//the frame is used to animate the smoke
 function drawSmoke(ctx, canvas, frame) {
     ctx.fillStyle = "rgb(0, 0, 0)";
     ctx.font = "bold 1em Arial";
