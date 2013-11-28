@@ -8,7 +8,10 @@ function main() {
         drawTopLeftAndDownRightCursor(ctx, canvas);
         drawGrass(ctx, canvas);
         drawWalls(ctx, canvas);
+		drawWindows(ctx, canvas);
+		drawDoor(ctx, canvas);
         drawRoof(ctx, canvas);
+		drawChimney(ctx, canvas);
         drawSmoke(ctx, canvas, frame);
         frame = (frame + 1) % 320;
     }, 40);
@@ -51,11 +54,12 @@ function drawWalls(ctx, canvas) {
     ctx.lineTo(x+150,y+15);//f
     ctx.lineTo(x+150,y+90);//g
     ctx.lineTo(x+85,y+90);//d
+    ctx.fill();
     ctx.stroke();
 
     //over draw
     ctx.beginPath();
-    //east fron wall
+    //east front wall
     ctx.rect(x+125,y+30,60,75);//h
     //parallelogram
     ctx.moveTo(x+185,y+30);//i
@@ -66,14 +70,49 @@ function drawWalls(ctx, canvas) {
     ctx.stroke();
 }
 
+function drawWindows(ctx, canvas) {
+	
+    ctx.fillStyle = 'cyan';
+	
+	//draw west window
+    ctx.beginPath();
+    ctx.moveTo(46,133);//top,left
+    ctx.lineTo(46,169);//bottom,left
+    ctx.lineTo(75,169);//bottom,right
+    ctx.lineTo(75,133);//top,right
+    ctx.lineTo(46,133);//top,left
+    ctx.fill();
+    ctx.stroke();
+	
+	//draw east window
+    ctx.beginPath();
+    ctx.moveTo(172,133);//top,left
+    ctx.lineTo(172,169);//bottom,left
+    ctx.lineTo(204,169);//bottom,right
+    ctx.lineTo(204,133);//top,right
+    ctx.lineTo(172,133);//top,left
+    ctx.fill();
+    ctx.stroke();
+}
+
 function drawDoor(ctx, canvas) {
     var x = 30;
     var y = 90;
+	
+    ctx.fillStyle = 'brown';
+	
     ctx.beginPath();
+    ctx.moveTo(127,139);//top,left
+    ctx.lineTo(127,179);//bottom,left
+    ctx.lineTo(149,179);//bottom,right
+    ctx.lineTo(149,139);//top,right
+    ctx.lineTo(127,139);//top,left
+    ctx.fill();
+    ctx.stroke();
 }
 
 function drawRoof(ctx, canvas) {
-    var x = 30;
+    var x = 30;	//Denis: why do we need x and y here?
     var y = 90;
     
     ctx.fillStyle = 'red';
@@ -97,12 +136,12 @@ function drawRoof(ctx, canvas) {
 
     //over draw
     ctx.beginPath();
-    //draw west troof triangle
+    //draw east troof triangle
     ctx.moveTo(x+155,y-10);//p
     ctx.lineTo(x+125,y+30);//h
     ctx.lineTo(x+185,y+30);//i
     ctx.lineTo(x+155,y-10);//p
-    //draw west roof parallelogram
+    //draw east roof parallelogram
     ctx.lineTo(x+205,y-40);//o
     ctx.lineTo(x+235,y+0);//j
     ctx.lineTo(x+185,y+30);//j
@@ -110,15 +149,85 @@ function drawRoof(ctx, canvas) {
     ctx.stroke();
     ctx.beginPath();
 
+	
 }
 
-//eventually this will be thw smoke
-//the frame loops from 0 to wahtever
+//draw chimney
+function drawChimney(ctx, canvas) {
+	
+    ctx.fillStyle = 'blue';
+	
+	//front wall of chimney
+    ctx.beginPath();
+    ctx.moveTo(236,79);	//top,left
+    ctx.lineTo(236,180);	//bottom,left
+    ctx.lineTo(255,180);	//bottom,right
+    ctx.lineTo(255,79);	//top,right
+    ctx.lineTo(236,79);	//top,left
+    ctx.fill();
+    ctx.stroke();
+	
+	//east wall of chimney
+    ctx.beginPath();
+    ctx.moveTo(255,79);	//top,left
+    ctx.lineTo(255,180);	//bottom,left
+    ctx.lineTo(265,160);	//bottom,right
+    ctx.lineTo(265,65);	//top,right
+    ctx.lineTo(255,79);	//top,left
+    ctx.fill();
+    ctx.stroke();
+	
+	//draw top of chimney
+    ctx.beginPath();
+    ctx.moveTo(246,65);	//top,left
+    ctx.lineTo(236,79);	//bottom,left
+    ctx.lineTo(255,79);	//bottom,right
+    ctx.lineTo(265,65);	//top,right
+    ctx.lineTo(246,65);	//top,left
+    ctx.fill();
+    ctx.stroke();
+
+	//draw chimney opening
+    ctx.fillStyle = 'black';
+    ctx.beginPath();
+    ctx.moveTo(249,70);	//top,left
+    ctx.lineTo(241,74);	//bottom,left
+    ctx.lineTo(252,74);	//bottom,right
+    ctx.lineTo(260,70);	//top,right
+    ctx.lineTo(251,70);	//top,left
+    ctx.fill();
+    ctx.stroke();
+	
+}
+
+//draw a smoke 'ball'
+function drawSmokeParticle(ctx, canvas, frame) {
+	var baseradius = 10;
+	var radiusgrowth = 15;
+	
+	ctx.arc(252, 71 - frame/320.0*(71+baseradius+radiusgrowth), baseradius+frame/320.0*radiusgrowth, 0, 2*Math.PI);
+}
+
+//the frame loops from 0 to 320
 //the frame is used to animate the smoke
 function drawSmoke(ctx, canvas, frame) {
-    ctx.fillStyle = "rgb(0, 0, 0)";
-    ctx.font = "bold 1em Arial";
-    ctx.fillText("Hello World", 46, frame);
+    //ctx.fillStyle = "rgb(0, 0, 0)";
+    //ctx.font = "bold 1em Arial";
+    //ctx.fillText("Hello World", 46, frame);
+	
+	//draw several smoke particles
+    ctx.fillStyle = 'gray';
+	
+	ctx.beginPath();
+	drawSmokeParticle(ctx, canvas, (frame+320/5*0)%320);
+	drawSmokeParticle(ctx, canvas, (frame+320/5*1)%320);
+	drawSmokeParticle(ctx, canvas, (frame+320/5*2)%320);
+	drawSmokeParticle(ctx, canvas, (frame+320/5*3)%320);
+	drawSmokeParticle(ctx, canvas, (frame+320/5*4)%320);
+	drawSmokeParticle(ctx, canvas, (frame+320/5*5)%320);
+	drawSmokeParticle(ctx, canvas, (frame+320/5*6)%320);
+    ctx.fill();
+    //ctx.stroke();
 }
 
 function drawTopLeftAndDownRightCursor(ctx, canvas) {
