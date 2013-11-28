@@ -4,16 +4,16 @@ function main() {
 
     var frame = 0;
     setInterval(function () {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawTopLeftAndDownRightCursor(ctx, canvas);
-        drawGrass(ctx, canvas);
-        drawWalls(ctx, canvas);
-		drawWindows(ctx, canvas);
-		drawDoor(ctx, canvas);
-        drawRoof(ctx, canvas);
-		drawChimney(ctx, canvas);
-        drawSmoke(ctx, canvas, frame);
-        frame = (frame + 1) % 320;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);	//clear drawing region
+        //drawTopLeftAndDownRightCursor(ctx, canvas);
+        drawGrass(ctx, canvas);	//draw grass
+        drawWalls(ctx, canvas); //draw walls
+		drawWindows(ctx, canvas); //draw windows
+		drawDoor(ctx, canvas); //draw door
+        drawRoof(ctx, canvas);	//draw roof
+		drawChimney(ctx, canvas);	//draw chimney
+        drawSmoke(ctx, canvas, frame);	//draw smoke animation
+        frame = (frame + 1) % 320;	//update animation frame
     }, 40);
 }
 
@@ -22,6 +22,7 @@ function drawGrass(ctx, canvas) {
     var x = 0;
     var y = 0;
 
+	//use a quadratic curve for a funky shape
     ctx.fillStyle = 'green';
     ctx.beginPath();
     ctx.moveTo(x+25,y+178);
@@ -36,6 +37,7 @@ function drawGrass(ctx, canvas) {
     
 }
 
+//draw walls and fill them in
 function drawWalls(ctx, canvas) {
     var x = 30;
     var y = 90;
@@ -70,8 +72,10 @@ function drawWalls(ctx, canvas) {
     ctx.stroke();
 }
 
+//draw windows and fill them in
 function drawWindows(ctx, canvas) {
 	
+	//make the windows glass-colored
     ctx.fillStyle = 'cyan';
 	
 	//draw west window
@@ -95,10 +99,9 @@ function drawWindows(ctx, canvas) {
     ctx.stroke();
 }
 
+//draw door and fill it in
 function drawDoor(ctx, canvas) {
-    var x = 30;
-    var y = 90;
-	
+	//make the door brown
     ctx.fillStyle = 'brown';
 	
     ctx.beginPath();
@@ -111,8 +114,9 @@ function drawDoor(ctx, canvas) {
     ctx.stroke();
 }
 
+//draw a red roof
 function drawRoof(ctx, canvas) {
-    var x = 30;	//Denis: why do we need x and y here?
+    var x = 30;
     var y = 90;
     
     ctx.fillStyle = 'red';
